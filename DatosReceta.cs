@@ -60,35 +60,30 @@ namespace RECETAS
 
         public void BuscarReceta()
         {
- 
-            bool nombreEncontrado = false;
             string nombreParaBuscar;
-            do
+            bool recetaEncontrada = false;
+            Console.Write("Ingresa el nombre de la receta que quieras buscar: ");
+            nombreParaBuscar = Console.ReadLine();
+            foreach (var receta in IngresarReceta)
             {
-                Console.Write("Ingresa el nombre de la receta que quieras buscar: ");
-                nombreParaBuscar = Console.ReadLine();
-
-                foreach (var receta in IngresarReceta)
+                if (nombreParaBuscar.ToLower() == receta.Nombre.ToLower())
                 {
-                    if (nombreParaBuscar.ToLower() == receta.Nombre.ToLower())
-                    {
-                        nombreEncontrado = true;
-                        Console.WriteLine("");
-                        Console.WriteLine($"Receta #{receta.IdReceta}");
-                        Console.WriteLine($"Nombre: {receta.Nombre}");
-                        Console.WriteLine($"Procedimiento: {receta.Procedimiento}");
-                        Console.WriteLine($"Ingredientes: {receta.Ingredientes}");
-                    }
-                    else
-                    {
-                        Console.ForegroundColor=ConsoleColor.DarkRed;
-                        Console.WriteLine("No existe una receta con ese nombre, intenta de nuevo");
-                        Console.WriteLine();
-                        Console.ResetColor();
-                        
-                    }
+                    recetaEncontrada = true;
+                    Console.WriteLine("");
+                    Console.WriteLine($"Receta #{receta.IdReceta}");
+                    Console.WriteLine($"Nombre: {receta.Nombre}");
+                    Console.WriteLine($"Procedimiento: {receta.Procedimiento}");
+                    Console.WriteLine($"Ingredientes: {receta.Ingredientes}");
+                    break;
                 }
-            } while (nombreEncontrado == false);
+            }
+            if(recetaEncontrada == false)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("No existe una receta con ese nombre, intenta de nuevo");
+                Console.WriteLine();
+                Console.ResetColor();
+            }
         }
 
         public void MostrarRecetas()
